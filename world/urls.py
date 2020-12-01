@@ -3,10 +3,12 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.load_world, name='load_world'),
     path('campaign/<str:campaign_name>', views.load_campaign, name='load_campaign'),
-    # path('campaign/<str:campaign_name>/property/<str:property_name>', views.load_property, name='load_property'),
-    # path('campaign/<str:campaign_name>/property/<str:property_name>/save', views.save_property, name='save_property'),
-    # path('campaign/<str:campaign_name>/property/<str:property_name>/delete', views.delete_property, name='delete_property'),
+    path('campaign/<str:campaign_name>/property/<str:property_name>', views.load_property, name='load_property'),
+    path('campaign/<str:campaign_name>/property/<str:property_name>/save', views.save_property, name='save_property'),
+    path('campaign/<str:campaign_name>/property/<str:property_name>/default', views.delete_property, name='delete_property'),
+    path('campaign/<str:campaign_name>/property/<str:property_name>/delete', views.delete_property, name='delete_property'),
     path('campaign/<str:campaign_name>/map/<str:map_name>', views.load_map, name='load_map'),
     path('campaign/<str:campaign_name>/map/<str:map_name>/save', views.save_map, name='save_map'),
     path('campaign/<str:campaign_name>/map/<str:map_name>/delete', views.delete_map, name='delete_map'),
