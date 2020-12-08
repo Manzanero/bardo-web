@@ -63,3 +63,4 @@ venv.bak/
 
 # Custom
 .idea
+static_root
