@@ -38,12 +38,11 @@
     XMLHttpRequest.prototype.open = newOpen;
 </script>
 <script>
-    var buildUrl = "../static/unity/BuildWeb/Build";
-    var loaderUrl = buildUrl + "/BuildWeb.loader.js";
+    var loaderUrl = "{% static "unity/BuildWeb/Build/BuildWeb.loader.js" %}";
     var config = {
-        dataUrl: buildUrl + "/BuildWeb.data.gz",
-        frameworkUrl: buildUrl + "/BuildWeb.framework.js.gz",
-        codeUrl: buildUrl + "/BuildWeb.wasm.gz",
+        dataUrl: "{% static "unity/BuildWeb/Build/BuildWeb.data.gz" %}",
+        frameworkUrl: "{% static "unity/BuildWeb/Build/BuildWeb.framework.js.gz" %}",
+        codeUrl: "{% static "unity/BuildWeb/Build/BuildWeb.wasm.gz" %}",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Bardo",
