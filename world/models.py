@@ -17,10 +17,10 @@ class CampaignProperty(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
     name = models.CharField(max_length=256)
-    value = models.CharField(max_length=256)
+    value = models.TextField()
 
     class Meta:
-        unique_together = ('campaign', 'user', 'name')
+        unique_together = ('campaign', 'user', 'name', 'value')
 
 
 class Map(models.Model):
@@ -43,10 +43,10 @@ class MapProperty(models.Model):
     map = models.ForeignKey(Map, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
     name = models.SlugField(max_length=256)
-    value = models.CharField(max_length=256)
+    value = models.TextField()
 
     class Meta:
-        unique_together = ('map', 'user', 'name')
+        unique_together = ('map', 'user', 'name', 'value')
 
 
 class Action(models.Model):
