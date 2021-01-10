@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 config = configparser.ConfigParser()
-config.read(['config/environment.dfg', 'config/local-environment.cfg'])
+config.read(['config/environment.cfg', 'config/local-environment.cfg'])
 ENVIRONMENT = config.get('environment', 'name')
 BASE_URL = config.get('environment', 'base_url')
 
