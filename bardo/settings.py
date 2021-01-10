@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import configparser
 import os
 from pathlib import Path
 
@@ -19,11 +20,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
+config = configparser.ConfigParser()
+config.read(['config/environment.dfg', 'config/local-environment.cfg'])
+ENVIRONMENT = config.get('environment', 'name')
+BASE_URL = config.get('environment', 'base_url')
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '69@u@6^f+hd2*di5kfmpcw2$o9ad*!x^kjk@mjxi_*+gjz8242'
+with open(config.get('secret_key', 'file'), 'r', encoding='utf8') as f:
+    SECRET_KEY = f.read()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.getboolean('environment', 'debug')
 
 ALLOWED_HOSTS = ['*']
 
@@ -76,12 +84,22 @@ WSGI_APPLICATION = 'bardo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if config.get('database', 'type') == 'mysql':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': config.get('database', 'config_file')
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
