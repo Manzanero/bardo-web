@@ -4,8 +4,8 @@ from django.utils import timezone
 
 
 class Campaign(models.Model):
-    campaign_id = models.SlugField(max_length=256, unique=True, null=True)
-    name = models.CharField(max_length=256, unique=True)
+    campaign_id = models.SlugField(max_length=255, unique=True, null=True)
+    name = models.CharField(max_length=255, unique=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -16,7 +16,7 @@ class Campaign(models.Model):
 class CampaignProperty(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=255)
     value = models.TextField()
 
     class Meta:
@@ -24,9 +24,9 @@ class CampaignProperty(models.Model):
 
 
 class Map(models.Model):
-    map_id = models.SlugField(max_length=256, unique=True, null=True)
+    map_id = models.SlugField(max_length=255, unique=True, null=True)
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE)
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=255)
     data = models.TextField(default='{}')
     saved = models.DateTimeField(null=True)
     updated = models.DateTimeField(auto_now=True)
